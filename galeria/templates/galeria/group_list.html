@@ -1,0 +1,6 @@
+<h1>Lista de Grupos de Estudo</h1>
+<ul>
+    {% for group in groups %}
+        <li>{{ group.name }} - {{ group.description }}</li>
+    {% endfor %}
+</ul>
