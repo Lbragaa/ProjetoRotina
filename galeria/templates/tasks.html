@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas Semanais</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .task {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .task p {
+            color: #555;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .pending {
+            background-color: #FFC107;
+            color: #333;
+        }
+        .completed {
+            background-color: #28A745;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>Diretório de Tarefas Semanais</h2>
+</header>
+
+<div class="container">
+    <h1>Tarefas da Semana</h1>
+
+    <!-- Exemplo de uma Tarefa Pendente -->
+    <div class="task">
+        <div>
+            <h2>Revisar Anotações de Programação</h2>
+            <p>Data: Segunda-feira, 13 de Novembro</p>
+        </div>
+        <span class="status pending">Pendente</span>
+    </div>
+
+    <!-- Exemplo de uma Tarefa Concluída -->
+    <div class="task">
+        <div>
+            <h2>Exercícios de Matemática</h2>
+            <p>Data: Terça-feira, 14 de Novembro</p>
+        </div>
+        <span class="status completed">Concluída</span>
+    </div>
+
+    <div class="task">
+        <div>
+            <h2>Reunião de Planejamento</h2>
+            <p>Data: Quarta-feira, 15 de Novembro</p>
+        </div>
+        <span class="status pending">Pendente</span>
+    </div>
+
+    <div class="task">
+        <div>
+            <h2>Entrega de Relatório de Física</h2>
+            <p>Data: Quinta-feira, 16 de Novembro</p>
+        </div>
+        <span class="status completed">Concluída</span>
+    </div>
+
+    <!-- Adicione mais tarefas conforme necessário -->
+
+</div>
+
+<footer>
+    <p>&copy; 2024 Diretório de Tarefas Semanais. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

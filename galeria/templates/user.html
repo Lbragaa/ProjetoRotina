@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrderlyMind - Tarefas do Usuário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+        }
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+        header span {
+            font-size: 28px;
+            margin-right: 10px;
+        }
+        header nav {
+            margin-top: 5px;
+        }
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+        .task-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .day {
+            text-align: center;
+            width: 100px;
+        }
+        .day-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+        }
+        .day-name {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><span>⬛</span> OrderlyMind - Gerencie seu tempo com excelência!</h1>
+    <nav>
+        <a href="#">Grupos de Estudo</a>
+        <a href="#">Tarefas da Semana</a>
+    </nav>
+</header>
+
+<main>
+    <div class="task-wrapper">
+        <div class="day">
+            <div class="day-circle" style="background-color: #fdf5cc;"></div>
+            <label class="day-name">
+                <input type="checkbox" /> Segunda
+            </label>
+        </div>
+        <div class="day">
+            <div class="day-circle" style="background-color: #f5c6c6;"></div>
+            <label class="day-name">
+                <input type="checkbox" /> Terça
+            </label>
+        </div>
+        <div class="day">
+            <div class="day-circle" style="background-color: #ccf7cc;"></div>
+            <label class="day-name">
+                <input type="checkbox" /> Quarta
+            </label>
+        </div>
+        <div class="day">
+            <div class="day-circle" style="background-color: #c6e0f5;"></div>
+            <label class="day-name">
+                <input type="checkbox" /> Quinta
+            </label>
+        </div>
+        <div class="day">
+            <div class="day-circle" style="background-color: #e1c6f5;"></div>
+            <label class="day-name">
+                <input type="checkbox" /> Sexta
+            </label>
+        </div>
+        <div class="day">
+            <div class="day-circle" style="background-color: #f5d2c6;"></div>
+            <label class="day-name">
+                <input type="checkbox" /> Sábado
+            </label>
+        </div>
+        <div class="day">
+            <div class="day-circle" style="background-color: #a8d5a8;"></div>
+            <label class="day-name">
+                <input type="checkbox" /> Domingo
+            </label>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

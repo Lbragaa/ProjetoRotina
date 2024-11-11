@@ -32,6 +32,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -129,3 +131,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Added by me
+
+LOGIN_REDIRECT_URL = 'login'  # Redireciona para a página principal ou outra rota
+LOGOUT_REDIRECT_URL = 'home'  # Após logout
+LOGIN_REDIRECT_URL = 'user'  # Redireciona para a página inicial após login bem-sucedido
