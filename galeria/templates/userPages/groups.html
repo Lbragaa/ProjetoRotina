@@ -1,0 +1,36 @@
+{% extends 'user.html' %}
+
+{% block content %}
+<header>
+    <h2>Diretório de Grupos de Estudos</h2>
+</header>
+
+<div class="container">
+    <h1>Grupos de Estudos Disponíveis</h1>
+
+    <!-- Exemplo de um Grupo -->
+    <div class="group">
+        <h2>Grupo de Estudos de Programação</h2>
+        <p>Descrição: Grupo focado em melhorar as habilidades de programação com encontros semanais e desafios práticos.</p>
+        <p>Horário: Quartas-feiras, às 19:00</p>
+        <a href="#inscricao_programacao" class="join-btn">Inscrever-se</a>
+    </div>
+
+    <div class="group">
+        <h2>Grupo de Estudos de Matemática</h2>
+        <p>Descrição: Grupo de estudos para revisão de tópicos de álgebra e cálculo, com sessões interativas e prática em conjunto.</p>
+        <p>Horário: Terças-feiras, às 17:00</p>
+        <a href="#inscricao_matematica" class="join-btn">Inscrever-se</a>
+    </div>
+
+    <div class="group">
+        <h2>Grupo de Estudos de Física</h2>
+        <p>Descrição: Grupo dedicado a tópicos de física aplicada, ideal para reforçar conceitos teóricos e resolver problemas juntos.</p>
+        <p>Horário: Sábados, às 10:00</p>
+        <a href="#inscricao_fisica" class="join-btn">Inscrever-se</a>
+    </div>
+
+    <!-- Adicione mais grupos conforme necessário -->
+
+</div>
+{% endblock %}

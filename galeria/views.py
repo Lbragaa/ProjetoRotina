@@ -34,8 +34,8 @@ def task_list(request):
         tasks = Task.objects.filter(user=request.user)
     else:
         tasks = Task.objects.none()  # Retorna uma lista vazia se não estiver autenticado
-    return render(request, 'tasks.html', {'tasks': tasks})
+    return render(request, 'userPages/tasks.html', {'tasks': tasks})
 
 def group_list(request):
     groups = StudyGroup.objects.all()
-    return render(request, 'groups.html', {'groups': groups})
+    return render(request, 'userPages/groups.html', {'groups': groups})

@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -59,12 +61,14 @@
 <header>
     <h1><span>⬛</span> OrderlyMind - Gerencie seu tempo com excelência!</h1>
     <nav>
-        <a href="#">Grupos de Estudo</a>
-        <a href="#">Tarefas da Semana</a>
+        <a href="{% url 'groups' %}">Grupos de Estudo</a>
+        <a href="{% url 'tasks' %}">Tarefas da Semana</a>
     </nav>
+
 </header>
 
 <main>
+    {% block content %}
     <div class="task-wrapper">
         <div class="day">
             <div class="day-circle" style="background-color: #fdf5cc;"></div>
@@ -109,7 +113,12 @@
             </label>
         </div>
     </div>
+    {% endblock %}
 </main>
+
+<footer>
+    <p>&copy; 2024 OrderlyMind. Todos os direitos reservados.</p>
+</footer>
 
 </body>
 </html>

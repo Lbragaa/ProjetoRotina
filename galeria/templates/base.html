@@ -109,7 +109,7 @@
         <img src="{% static 'imagens/logo.png' %}" alt="Logo" class="logo">
         <h1><span>⬛</span> OrderlyMind - Gerencie seu tempo com excelência!</h1>
         <nav>
-            <a href="{% url 'login' %}">Fazer Login</a> |
+            <a href="{% url 'login' %}">Fazer Login</a>    |
             <a href="{% url 'register' %}">Cadastrar-se</a> <!-- Aponte para a URL de registro -->
         </nav>
     </header>
@@ -117,9 +117,11 @@
 
     <!-- Conteúdo Principal -->
     <main>
+        {% block content %}
         <div class="content-wrapper">
             <h2>Comece agora a organizar suas tarefas da melhor maneira possível!</h2>
             <a href="{% url 'register' %}" class="btn-register">Cadastrar-se</a> <!-- Altere 'register' para a rota correta de cadastro -->
+            {% endblock %}
         </div>
     </main>
 

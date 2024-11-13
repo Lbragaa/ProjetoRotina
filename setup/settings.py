@@ -61,7 +61,7 @@ ROOT_URLCONF = 'setup.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'galeria' / 'templates'],  # Adjust to your actual path
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

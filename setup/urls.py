@@ -1,10 +1,9 @@
 from django.contrib import admin
-from django.urls import path
-from django.urls import include
-
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('', include('galeria.urls')),
+    path('', include('galeria.urls')),  # Include the main app URLs
+    path('accounts/', include('django.contrib.auth.urls')),  # Include authentication URLs
 ]
+
