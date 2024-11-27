@@ -1,15 +1,87 @@
-{% extends 'base.html' %}
 
+{% extends 'base.html' %}
+{% load static %}
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="form-container">
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Entrar</button>
-    </form>
+<div class="form-wrapper">
+    <div class="form-container">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">Usuário:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="id_password">Senha:</label>
+                {{ form.password }}
+            </div>
+            <button type="submit" class="btn-submit">Entrar</button>
+        </form>
+        <p>
+            Ainda não tem uma conta? <a href="{% url 'register' %}">Cadastre-se</a>
+        </p>
+    </div>
 </div>
+
+<style>
+    .form-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+        text-align: center;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .form-group input {
+        width: 80%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .btn-submit {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #333;
+        color: #fff;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+    .btn-submit:hover {
+        background-color: #555;
+    }
+    p {
+        text-align: center;
+        margin-top: 15px;
+    }
+    p a {
+        color: #333;
+        text-decoration: underline;
+    }
+    p a:hover {
+        color: #555;
+    }
+</style>
 {% endblock %}
     
