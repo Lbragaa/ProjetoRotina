@@ -1,9 +1,9 @@
-
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Login{% endblock %}
 
 {% block content %}
+{% if not user.is_authenticated %}
 <div class="form-wrapper">
     <div class="form-container">
         <h2>Login</h2>
@@ -24,6 +24,11 @@
         </p>
     </div>
 </div>
+{% else %}
+<script>
+    window.location.href = "{% url 'user' %}";
+</script>
+{% endif %}
 
 <style>
     .form-container {
@@ -84,4 +89,3 @@
     }
 </style>
 {% endblock %}
-    

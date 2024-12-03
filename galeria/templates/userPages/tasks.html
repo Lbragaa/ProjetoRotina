@@ -1,64 +1,97 @@
-{% extends 'user.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block content %}
-<!-- Cabeçalho -->
-<header style="background-color: #333; color: #fff; padding: 15px 0; text-align: center; font-family: Arial, sans-serif;">
-    <h1 style="margin: 0; font-size: 2.5em;"></h1>
-</header>
+{% block title %}Tarefas Semanais{% endblock %}
 
-<!-- Conteúdo -->
-<div class="container" style="max-width: 900px; margin: 30px auto; padding: 20px; font-family: Arial, sans-serif; background-color: #f5f5f5; border-radius: 8px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-    <h2 style="text-align: center; font-size: 1.8em; margin-bottom: 20px;">Diretório de Tarefas Semanais</h2>
+{% block content %}
+<div class="form-container">
+    <h2>Diretório de Tarefas Semanais</h2>
 
     <!-- Lista de Tarefas -->
-    <div class="tasks" style="margin-bottom: 30px;">
-        <h3 style="text-align: center; font-size: 1.6em; margin-bottom: 15px;">Tarefas da Semana</h3>
+    <div class="tasks">
+        <h3>Tarefas da Semana</h3>
         
         <!-- Tarefa 1 -->
-        <div class="task" style="display: flex; justify-content: space-between; align-items: center; background-color: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
-            <div style="flex-grow: 1;">
-                <h4 style="margin: 0; font-size: 1.2em; color: #333;">Revisar Anotações de Programação</h4>
-                <p style="margin: 0; color: #777;">Data: Segunda-feira, 13 de Novembro</p>
+        <div class="task">
+            <div class="task-details">
+                <h4>Revisar Anotações de Programação</h4>
+                <p>Data: Segunda-feira, 13 de Novembro</p>
+                <p>Horário: 14:00</p>
             </div>
-            <span style="font-size: 1.1em; color: #777; margin-right: 10px;">Horário: 14:00</span>
-            <span style="color: #e74c3c; font-weight: bold;">Pendente</span>
+            <span class="status pending">Pendente</span>
         </div>
 
         <!-- Tarefa 2 -->
-        <div class="task" style="display: flex; justify-content: space-between; align-items: center; background-color: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
-            <div style="flex-grow: 1;">
-                <h4 style="margin: 0; font-size: 1.2em; color: #333;">Exercícios de Matemática</h4>
-                <p style="margin: 0; color: #777;">Data: Terça-feira, 14 de Novembro</p>
+        <div class="task">
+            <div class="task-details">
+                <h4>Exercícios de Matemática</h4>
+                <p>Data: Terça-feira, 14 de Novembro</p>
+                <p>Horário: 10:00</p>
             </div>
-            <span style="font-size: 1.1em; color: #777; margin-right: 10px;">Horário: 10:00</span>
-            <span style="color: #27ae60; font-weight: bold;">Concluída</span>
+            <span class="status completed">Concluída</span>
         </div>
 
         <!-- Tarefa 3 -->
-        <div class="task" style="display: flex; justify-content: space-between; align-items: center; background-color: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
-            <div style="flex-grow: 1;">
-                <h4 style="margin: 0; font-size: 1.2em; color: #333;">Reunião de Planejamento</h4>
-                <p style="margin: 0; color: #777;">Data: Quarta-feira, 15 de Novembro</p>
+        <div class="task">
+            <div class="task-details">
+                <h4>Reunião de Planejamento</h4>
+                <p>Data: Quarta-feira, 15 de Novembro</p>
+                <p>Horário: 16:00</p>
             </div>
-            <span style="font-size: 1.1em; color: #777; margin-right: 10px;">Horário: 16:00</span>
-            <span style="color: #e74c3c; font-weight: bold;">Pendente</span>
+            <span class="status pending">Pendente</span>
         </div>
 
         <!-- Tarefa 4 -->
-        <div class="task" style="display: flex; justify-content: space-between; align-items: center; background-color: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
-            <div style="flex-grow: 1;">
-                <h4 style="margin: 0; font-size: 1.2em; color: #333;">Entrega de Relatório de Física</h4>
-                <p style="margin: 0; color: #777;">Data: Quinta-feira, 16 de Novembro</p>
+        <div class="task">
+            <div class="task-details">
+                <h4>Entrega de Relatório de Física</h4>
+                <p>Data: Quinta-feira, 16 de Novembro</p>
+                <p>Horário: 09:00</p>
             </div>
-            <span style="font-size: 1.1em; color: #777; margin-right: 10px;">Horário: 09:00</span>
-            <span style="color: #27ae60; font-weight: bold;">Concluída</span>
+            <span class="status completed">Concluída</span>
         </div>
     </div>
-
-    <!-- Removido a Tabela Semanal -->
-    <div class="schedule-image" style="text-align: center; margin-top: 30px;">
-        <img src="{% static 'path/to/image.png' %}" alt="Tabela de Tarefas Semanais" style="width: 100%; max-width: 800px; height: auto; border-radius: 8px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-    </div>
 </div>
+
+<style>
+    .form-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    .tasks {
+        margin-top: 20px;
+    }
+    .task {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    .task-details {
+        flex-grow: 1;
+        text-align: left;
+    }
+    .status {
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    .pending {
+        color: #e74c3c;
+    }
+    .completed {
+        color: #27ae60;
+    }
+</style>
+
 {% endblock %}

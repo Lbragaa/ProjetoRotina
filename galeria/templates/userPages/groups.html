@@ -1,36 +1,79 @@
-{% extends 'user.html' %}
+{% extends 'base.html' %}
+
+{% block title %}Grupos de Estudos{% endblock %}
 
 {% block content %}
-<header>
+<div class="form-container">
     <h2>Diretório de Grupos de Estudos</h2>
-</header>
+    <div class="container">
 
-<div class="container">
-    <h1>Grupos de Estudos Disponíveis</h1>
+        <div class="group">
+            <h3>Grupo de Estudos de Programação</h3>
+            <p>Descrição: Grupo focado em melhorar as habilidades de programação com encontros semanais e desafios práticos.</p>
+            <p>Horário: Quartas-feiras, às 19:00</p>
+            <a href="#inscricao_programacao" class="join-btn">Inscrever-se</a>
+        </div>
 
-    <!-- Exemplo de um Grupo -->
-    <div class="group">
-        <h2>Grupo de Estudos de Programação</h2>
-        <p>Descrição: Grupo focado em melhorar as habilidades de programação com encontros semanais e desafios práticos.</p>
-        <p>Horário: Quartas-feiras, às 19:00</p>
-        <a href="#inscricao_programacao" class="join-btn">Inscrever-se</a>
+        <div class="group">
+            <h3>Grupo de Estudos de Matemática</h3>
+            <p>Descrição: Grupo de estudos para revisão de tópicos de álgebra e cálculo, com sessões interativas e prática em conjunto.</p>
+            <p>Horário: Terças-feiras, às 17:00</p>
+            <a href="#inscricao_matematica" class="join-btn">Inscrever-se</a>
+        </div>
+
+        <div class="group">
+            <h3>Grupo de Estudos de Física</h3>
+            <p>Descrição: Grupo dedicado a tópicos de física aplicada, ideal para reforçar conceitos teóricos e resolver problemas juntos.</p>
+            <p>Horário: Sábados, às 10:00</p>
+            <a href="#inscricao_fisica" class="join-btn">Inscrever-se</a>
+        </div>
+
     </div>
-
-    <div class="group">
-        <h2>Grupo de Estudos de Matemática</h2>
-        <p>Descrição: Grupo de estudos para revisão de tópicos de álgebra e cálculo, com sessões interativas e prática em conjunto.</p>
-        <p>Horário: Terças-feiras, às 17:00</p>
-        <a href="#inscricao_matematica" class="join-btn">Inscrever-se</a>
-    </div>
-
-    <div class="group">
-        <h2>Grupo de Estudos de Física</h2>
-        <p>Descrição: Grupo dedicado a tópicos de física aplicada, ideal para reforçar conceitos teóricos e resolver problemas juntos.</p>
-        <p>Horário: Sábados, às 10:00</p>
-        <a href="#inscricao_fisica" class="join-btn">Inscrever-se</a>
-    </div>
-
-    <!-- Adicione mais grupos conforme necessário -->
-
 </div>
+
+<style>
+    .form-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    .container {
+        margin-top: 20px;
+    }
+    .group {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    .group h3 {
+        margin-top: 0;
+        font-size: 1.6em;
+        color: #333;
+    }
+    .group p {
+        margin: 10px 0;
+        color: #555;
+    }
+    .join-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-top: 10px;
+        color: #fff;
+        background-color: #007BFF;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .join-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
 {% endblock %}

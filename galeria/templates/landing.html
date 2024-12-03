@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}OrderlyMind - Landing Page{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    {% if not user.is_authenticated %}
+        <h2>Comece agora a organizar suas tarefas da melhor maneira possível!</h2>
+        <a href="{% url 'register' %}" class="btn-register">Cadastrar-se</a> <!-- Altere 'register' para a rota correta de cadastro -->
+    {% else %}
+        <!-- Redireciona para a página do usuário se estiver autenticado -->
+        <script>
+            window.location.href = "{% url 'user' %}";
+        </script>
+    {% endif %}
+</div>
+{% endblock %}

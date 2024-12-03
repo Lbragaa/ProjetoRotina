@@ -10,6 +10,8 @@ def minha_view(request):
     # Código da view que exige autenticação
     pass
 
+def landing_view(request):
+    return render(request, 'landing.html')
 
 def home(request):
     return render(request, 'base.html')
@@ -25,6 +27,8 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+
 
 def user(request):
     return render(request, 'user.html')

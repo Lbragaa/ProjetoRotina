@@ -3,6 +3,7 @@
 {% block title %}Cadastro{% endblock %}
 
 {% block content %}
+{% if not user.is_authenticated %}
 <div class="form-container">
     <h2>Cadastro</h2>
     <form method="post">
@@ -23,6 +24,11 @@
     </form>
     <p>Já tem uma conta? <a href="{% url 'login' %}">Faça login</a></p>
 </div>
+{% else %}
+<script>
+    window.location.href = "{% url 'user' %}";
+</script>
+{% endif %}
 
 <style>
     .form-container {
