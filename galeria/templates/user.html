@@ -73,10 +73,23 @@
         <div class="task-list">
             <h2>Tarefas do Dia</h2>
             <ul>
-                <li><input type="checkbox" id="task1"> <label for="task1">Revisar documentos</label></li>
-                <li><input type="checkbox" id="task2"> <label for="task2">Estudar para a prova</label></li>
-                <li><input type="checkbox" id="task3"> <label for="task3">Fazer compras</label></li>
-                <li><input type="checkbox" id="task4"> <label for="task4">Enviar e-mails</label></li>
+                <li><input type="checkbox" id="task1"> <label for="task1">Revisar documentos</label> <span class="difficulty easy"></span></li>
+                <li><input type="checkbox" id="task2"> <label for="task2">Estudar para a prova</label> <span class="difficulty hard"></span></li>
+                <li><input type="checkbox" id="task3"> <label for="task3">Fazer compras</label> <span class="difficulty medium"></span></li>
+                <li><input type="checkbox" id="task4"> <label for="task4">Enviar e-mails</label> <span class="difficulty easy"></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Legenda para Dificuldade com Container de Fundo -->
+    <div class="difficulty-legend-container">
+        <div class="difficulty-legend">
+            <h3>Legenda de Dificuldade</h3>
+            <ul>
+                <li><span class="difficulty easy"></span> Fácil - 10 a 30 min (1 ponto)</li>
+                <li><span class="difficulty medium"></span> Médio - 30 min a 1 hora e 30 min (2 pontos)</li>
+                <li><span class="difficulty hard"></span> Difícil - 1 hora e 30 min a 3 horas (4 pontos)</li>
+                <li><span class="difficulty veryhard"></span> Muito difícil - acima de 3 horas (6 pontos)</li>
             </ul>
         </div>
     </div>
@@ -87,12 +100,12 @@
     .calendar-container {
         display: flex;
         justify-content: space-between;
-        width: 100%;
+        width: 100%; /* Mantém o container com 100% da largura */
         margin-bottom: 20px;
     }
 
     .calendar {
-        flex: 1;
+        flex: 0 1 30%; /* O calendário ocupa 30% da largura */
         margin-right: 20px;
     }
 
@@ -100,13 +113,13 @@
         width: 100%;
         border-collapse: collapse;
         margin: 0 auto;
+        font-size: 18px; /* Aumenta o tamanho do texto */
     }
 
     .calendar th, .calendar td {
         border: 1px solid #ddd;
-        padding: 10px;
+        padding: 15px; /* Aumenta o espaço interno */
         text-align: center;
-        font-size: 16px;
     }
 
     .calendar th {
@@ -124,11 +137,12 @@
     }
 
     .task-list {
-        flex: 1;
         background: #fff;
-        padding: 15px;
+        padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-size: 18px; /* Aumenta o tamanho do texto */
+        width: 65%; /* Aumenta a largura da caixa de tarefas para 65% */
     }
 
     .task-list h2 {
@@ -142,7 +156,65 @@
     }
 
     .task-list li {
+        margin: 15px 0; /* Aumenta o espaçamento entre as tarefas */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .difficulty {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .difficulty.easy {
+        background-color: green;
+    }
+
+    .difficulty.medium {
+        background-color: orange;
+    }
+
+    .difficulty.hard {
+        background-color: red;
+    }
+
+    .difficulty.veryhard {
+        background-color: black;
+    }
+
+    /* Estilos para a legenda com o novo container */
+    .difficulty-legend-container {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 80%; /* Define a largura da legenda */
+        margin-bottom: 30px;
+    }
+
+    .difficulty-legend h3 {
+        text-align: center;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .difficulty-legend ul {
+        list-style: none;
+        padding: 0;
+        font-size: 16px;
+    }
+
+    .difficulty-legend li {
         margin: 10px 0;
+    }
+
+    .difficulty-legend .difficulty {
+        margin-right: 10px;
     }
 
     .container {
@@ -150,7 +222,7 @@
         flex-direction: column;
         align-items: center;
         margin: 20px auto;
-        max-width: 1200px;
+        max-width: 1400px; /* Amplia o container */
     }
 </style>
 {% endblock %}
