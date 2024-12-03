@@ -6,16 +6,18 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 
-def minha_view(request):
-    # Código da view que exige autenticação
-    pass
-
+# Landing Page View
 def landing_view(request):
     return render(request, 'landing.html')
 
-def home(request):
-    return render(request, 'base.html')
 
+# Home Page for Authenticated Users
+@login_required
+def user(request):
+    return render(request, 'user.html')
+
+
+# Registration View
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -23,23 +25,21 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f"Conta criada com sucesso para {username}!")
-            return redirect('login')  # Redireciona para a página de login após o registro
+            return redirect('login')  # Redirect to the login page after successful registration
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
 
 
-
-def user(request):
-    return render(request, 'user.html')
-
+# Task List View for Logged-in Users
+@login_required
 def task_list(request):
-    if request.user.is_authenticated:
-        tasks = Task.objects.filter(user=request.user)
-    else:
-        tasks = Task.objects.none()  # Retorna uma lista vazia se não estiver autenticado
+    tasks = Task.objects.filter(user=request.user)
     return render(request, 'userPages/tasks.html', {'tasks': tasks})
 
+
+# Group List View for Study Groups
+@login_required
 def group_list(request):
     groups = StudyGroup.objects.all()
     return render(request, 'userPages/groups.html', {'groups': groups})

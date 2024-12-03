@@ -31,9 +31,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -76,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'setup.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -86,7 +82,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -106,21 +101,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = 'pt-br'
 
-
 TIME_ZONE = 'America/Sao_Paulo'
-
-
 
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -136,8 +126,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#Added by me
+# Custom Settings for Login and Logout
 
-LOGIN_REDIRECT_URL = 'login'  # Redireciona para a página principal ou outra rota
-LOGOUT_REDIRECT_URL = 'home'  # Após logout
-LOGIN_REDIRECT_URL = 'user'  # Redireciona para a página inicial após login bem-sucedido
+LOGIN_REDIRECT_URL = 'user'  # Redirect to user page after successful login
+LOGOUT_REDIRECT_URL = 'landing'  # Redirect to landing page after logout
