@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+
+{% block title %}Entrar no Grupo{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Entrar em um Grupo de Estudo</h2>
+    <div class="container">
+
+        <!-- Barra de Pesquisa de Grupos -->
+        <div class="search-bar">
+            <input type="text" id="group_search" placeholder="Pesquise por nome do grupo..." onkeyup="searchGroups()">
+        </div>
+
+        <!-- Lista de Grupos Relevantes -->
+        <div class="group-list" id="group-list">
+            <!-- Exemplo de grupo relevante -->
+            {% for group in groups %}
+                <div class="group">
+                    <h3>{{ group.name }}</h3>
+                    <span class="members">{{ group.members.count }}/{{ group.max_members }}</span>
+                    <span class="status">Monitor ativo</span>
+                    <a href="{% url 'join_group' %}?group_id={{ group.id }}" class="join-btn">Entrar no Grupo</a>
+                </div>
+            {% empty %}
+                <p>Não há grupos disponíveis.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Botão para abrir o popup -->
+        <button class="popup-btn" onclick="openPopup()">Pesquisar por link</button>
+
+        <!-- Popup para pesquisar por link -->
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <h3>Pesquisar Grupo Privado</h3>
+                <form method="GET" action="{% url 'join_group' %}">
+                    <label for="group_link">Insira o link do grupo:</label>
+                    <input type="text" id="group_link" name="group_link" placeholder="Digite o link do grupo privado..." required>
+                    <button type="submit" class="submit-btn">Pesquisar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Função para abrir o popup
+    function openPopup() {
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    // Função para fechar o popup
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+
+    // Função para filtrar grupos com base na pesquisa
+    function searchGroups() {
+        var input, filter, groupList, groups, h3, i, txtValue;
+        input = document.getElementById('group_search');
+        filter = input.value.toUpperCase();
+        groupList = document.getElementById("group-list");
+        groups = groupList.getElementsByClassName('group');
+
+        for (i = 0; i < groups.length; i++) {
+            h3 = groups[i].getElementsByTagName("h3")[0];
+            txtValue = h3.textContent || h3.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                groups[i].style.display = "";
+            } else {
+                groups[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+<style>
+    .form-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .search-bar {
+        margin-bottom: 20px;
+    }
+
+    .search-bar input {
+        padding: 10px;
+        width: 80%;
+        font-size: 1em;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .group-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .group {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .group h3 {
+        margin-top: 0;
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .members {
+        font-size: 1.2em;
+        color: #555;
+        font-weight: bold;
+    }
+
+    .status {
+        font-size: 1em;
+        color: #28a745;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    .join-btn {
+        padding: 10px 20px;
+        color: #fff;
+        background-color: #007BFF;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+    }
+
+    .join-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .popup-btn {
+        padding: 10px 20px;
+        color: #fff;
+        background-color: #007BFF;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+        cursor: pointer;
+    }
+
+    .popup-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .popup {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        border-radius: 8px;
+        width: 40%;
+        text-align: center;
+        position: relative;
+    }
+
+    .popup-content .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        color: #aaa;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .popup-content .close:hover {
+        color: #000;
+    }
+
+    .popup-content form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .popup-content input {
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .popup-content .submit-btn {
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+        cursor: pointer;
+    }
+
+    .popup-content .submit-btn:hover {
+        background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+        .popup-content {
+            width: 90%;
+        }
+
+        .popup-content input {
+            font-size: 0.9em;
+        }
+
+        .popup-content .submit-btn {
+            font-size: 1em;
+        }
+    }
+</style>
+{% endblock %}

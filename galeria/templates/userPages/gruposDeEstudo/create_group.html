@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Criar Grupo{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Criar Novo Grupo de Estudo</h2>
+    <div class="container">
+
+        <!-- Formulário para criação de grupo -->
+        <form method="POST" action="{% url 'create_group' %}">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="group_name">Nome do Grupo:</label>
+                <input type="text" id="group_name" name="group_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descrição:</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="max_members">Máximo de Membros:</label>
+                <input type="number" id="max_members" name="max_members" value="12" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Criar Grupo</button>
+        </form>
+
+    </div>
+</div>
+
+<style>
+    .form-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 1.1em;
+        margin-bottom: 5px;
+    }
+
+    .form-group input, .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .submit-btn {
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+    }
+
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .form-container {
+            padding: 10px;
+        }
+
+        .form-group input, .form-group textarea {
+            font-size: 0.9em;
+        }
+
+        .submit-btn {
+            font-size: 1em;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}Grupos de Estudos{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Grupos de Estudos</h2>
+    <div class="container">
+
+        <!-- Barra de Pesquisa -->
+        <form method="GET" action="{% url 'groups' %}">
+            <input type="text" name="q" placeholder="Pesquisar grupos..." value="{{ request.GET.q }}">
+            <button type="submit" class="group-btn">Pesquisar</button>
+        </form>
+
+        <!-- Lista de Grupos -->
+        <div class="group-list">
+            {% for group in groups %}
+                <div class="group">
+                    <h3>{{ group.name }}</h3>
+                    <!-- Exibição de membros atuais / máximo de membros -->
+                    <span class="members">{{ group.members.count }}/{{ group.max_members }}</span>
+                </div>
+            {% empty %}
+                <p>Não há grupos cadastrados ou correspondentes à sua pesquisa.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Opções de Criar ou Entrar no Grupo -->
+        <div class="group-options">
+            <a href="{% url 'create_group' %}" class="group-btn">Criar Grupo</a>
+            <a href="{% url 'join_group' %}" class="group-btn">Entrar no Grupo</a>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    /* Estilo para o container principal */
+    .form-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    /* Estilo para o container interno que contém os grupos */
+    .container {
+        margin-top: 20px;
+    }
+
+    /* Estilo para a barra de pesquisa */
+    form {
+        margin-bottom: 20px;
+    }
+
+    form input {
+        padding: 10px;
+        width: 70%;
+        font-size: 1em;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        margin-right: 10px;
+    }
+
+    form button {
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+    }
+
+    form button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Estilo para cada grupo de estudo */
+    .group {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .group h3 {
+        margin-top: 0;
+        font-size: 1.6em;
+        color: #333;
+    }
+
+    .members {
+        font-size: 1.2em;
+        color: #555;
+        font-weight: bold;
+    }
+
+    /* Estilo para os botões Criar Grupo e Entrar no Grupo */
+    .group-options {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .group-btn {
+        padding: 10px 20px;
+        color: #fff;
+        background-color: #007BFF;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+    }
+
+    /* Estilo para o botão quando passa o mouse */
+    .group-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Responsividade: Ajuste para dispositivos menores */
+    @media (max-width: 768px) {
+        .form-container {
+            padding: 10px;
+        }
+
+        .group h3 {
+            font-size: 1.4em;
+        }
+
+        .members {
+            font-size: 1em;
+        }
+
+        .group-btn {
+            padding: 8px 15px;
+            font-size: 1em;
+        }
+
+        form input {
+            width: 60%;
+        }
+    }
+</style>
+
+{% endblock %}
