@@ -6,6 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import TaskForm
 from django.utils import timezone
+import calendar
+from datetime import datetime, timedelta
 
 # Difficulty XP Mapping
 DIFFICULTY_XP_MAPPING = {
@@ -22,19 +24,58 @@ def landing_view(request):
 # Home Page for Authenticated Users
 @login_required
 def user(request):
-    # Make the comparison with timezone aware settings
-    today = timezone.localdate()  # This ensures you get today's date based on the local timezone
+    # Obtém a data atual ou a enviada pelo usuário
+    current_date_str = request.GET.get('date', datetime.today().strftime('%Y-%m-%d'))
 
-    # Debugging print statement to verify dates
-    print(f"Todays date: {today}")
+    try:
+        current_date = datetime.strptime(current_date_str, '%Y-%m-%d')
+    except ValueError:
+        # Fallback para a data atual caso o parâmetro 'date' esteja vazio ou inválido
+        current_date = datetime.today().replace(day=1)
 
-    # Filter for today's tasks
+    # Verificar mudanças no mês
+    change_month = request.GET.get('change_month')
+    if change_month == 'previous':
+        # Ajustar para o mês anterior
+        if current_date.month == 1:  # Janeiro → Dezembro do ano anterior
+            current_date = current_date.replace(year=current_date.year - 1, month=12, day=1)
+        else:
+            current_date = current_date.replace(month=current_date.month - 1, day=1)
+    elif change_month == 'next':
+        # Ajustar para o próximo mês
+        if current_date.month == 12:  # Dezembro → Janeiro do próximo ano
+            current_date = current_date.replace(year=current_date.year + 1, month=1, day=1)
+        else:
+            current_date = current_date.replace(month=current_date.month + 1, day=1)
+
+    # Gerar o calendário para o mês ajustado
+    cal = calendar.Calendar(firstweekday=6)
+    month_days = cal.monthdayscalendar(current_date.year, current_date.month)
+
+    # Nome do mês e ano
+    current_month_name = current_date.strftime('%B')
+    current_year = current_date.year
+
+    # Obtém a data de hoje no timezone local
+    today = timezone.localdate()
+
+    # Filtra as tarefas para hoje
     daily_tasks = Task.objects.filter(user=request.user, due_date=today)
 
-    # Calculate total weekly XP by mapping difficulty strings to their respective values
-    total_weekly_xp = sum(DIFFICULTY_XP_MAPPING.get(task.difficulty, 0) for task in Task.objects.filter(user=request.user))
+    # Calcula o XP semanal total
+    total_weekly_xp = sum(
+        DIFFICULTY_XP_MAPPING.get(task.difficulty, 0) for task in Task.objects.filter(user=request.user)
+    )
 
-    return render(request, 'user.html', {'daily_tasks': daily_tasks, 'total_weekly_xp': total_weekly_xp})
+    return render(request, 'user.html', {
+        'current_month': current_month_name,
+        'current_year': current_year,
+        'calendar': month_days,
+        'total_weekly_xp': total_weekly_xp,
+        'daily_tasks': daily_tasks,
+        'current_date': current_date.strftime('%Y-%m-%d'),  # Passar data atual ajustada para o HTML
+    })
+
 
 # Registration View
 def register(request):

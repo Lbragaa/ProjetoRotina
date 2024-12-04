@@ -1,16 +1,30 @@
 {% extends 'base.html' %}
 
+
 {% block title %}OrderlyMind - Página do Usuário{% endblock %}
+
 
 {% block content %}
 <div class="container">
     <h1>Bem-vindo, {{ user.username }}</h1>
+
 
     <!-- Display the total XP for the week -->
     <div class="weekly-xp-container">
         <h2>Total XP da Semana: {{ total_weekly_xp }}</h2>
     </div>
 
+
+    <!-- Navegação de Mês -->
+    <div class="month-navigation">
+        <form method="GET" action="">
+            <button type="submit" name="change_month" value="previous">&#60;</button>
+            <span id="current-month">{{ current_month }} {{ current_year }}</span>
+            <button type="submit" name="change_month" value="next">&#62;</button>
+            <input type="hidden" name="date" value="{{ current_date }}">
+        </form>
+    </div>
+   
     <div class="calendar-container">
         <div class="calendar">
             <table>
@@ -26,54 +40,17 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for week in calendar %}
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
+                        {% for day in week %}
+                        <td>{% if day %}{{ day }}{% endif %}</td>
+                        {% endfor %}
                     </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>11</td>
-                        <td>12</td>
-                    </tr>
-                    <tr>
-                        <td>13</td>
-                        <td>14</td>
-                        <td>15</td>
-                        <td>16</td>
-                        <td>17</td>
-                        <td>18</td>
-                        <td>19</td>
-                    </tr>
-                    <tr>
-                        <td>20</td>
-                        <td>21</td>
-                        <td>22</td>
-                        <td>23</td>
-                        <td>24</td>
-                        <td>25</td>
-                        <td>26</td>
-                    </tr>
-                    <tr>
-                        <td>27</td>
-                        <td>28</td>
-                        <td>29</td>
-                        <td>30</td>
-                        <td>31</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
+
 
         <div class="task-list">
             <h2>Tarefas do Dia</h2>
@@ -91,15 +68,19 @@
                 {% endif %}
             </ul>
 
-            <!-- Button to Create New Task -->
+
+            <!-- Container para Criar Nova Tarefa -->
             <div class="create-task-container">
-                <a href="{% url 'create_task' %}" class="btn-create-task">Criar Nova Tarefa</a>
+                <div class="create-task-box">
+                    <a href="{% url 'create_task' %}" class="btn-create-task">Criar Nova Tarefa</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Legenda para Dificuldade com Container de Fundo -->
-    <div class="difficulty-legend-container">
+
+    <!-- Container de Legendas -->
+    <div class="legend-container">
         <div class="difficulty-legend">
             <h3>Legenda de Dificuldade</h3>
             <ul>
@@ -112,72 +93,82 @@
     </div>
 </div>
 
+
 <style>
-    /* Estilos Gerais */
+    .month-navigation {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 20px;
+    }
+
+
+    .month-navigation button {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+
+    .month-navigation button:hover {
+        background-color: #0056b3;
+    }
+
+
+    #current-month {
+        margin: 0 20px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+
     .calendar-container {
         display: flex;
         justify-content: space-between;
-        width: 100%; /* Mantém o container com 100% da largura */
+        width: 100%;
         margin-bottom: 20px;
     }
 
+
     .calendar {
-        flex: 0 1 30%; /* O calendário ocupa 30% da largura */
+        flex: 0 1 30%;
         margin-right: 20px;
     }
+
 
     .calendar table {
         width: 100%;
         border-collapse: collapse;
-        margin: 0 auto;
-        font-size: 18px; /* Aumenta o tamanho do texto */
+        font-size: 18px;
     }
+
 
     .calendar th, .calendar td {
         border: 1px solid #ddd;
-        padding: 15px; /* Aumenta o espaço interno */
+        padding: 15px;
         text-align: center;
     }
+
 
     .calendar th {
         background-color: #f4f4f4;
         font-weight: bold;
     }
 
+
     .calendar td {
         background-color: #fff;
     }
+
 
     .calendar td:hover {
         background-color: #f0f8ff;
         cursor: pointer;
     }
 
-    .task-list {
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        font-size: 18px; /* Aumenta o tamanho do texto */
-        width: 65%; /* Aumenta a largura da caixa de tarefas para 65% */
-    }
-
-    .task-list h2 {
-        text-align: center;
-        margin-top: 0;
-    }
-
-    .task-list ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .task-list li {
-        margin: 15px 0; /* Aumenta o espaçamento entre as tarefas */
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
 
     .difficulty {
         width: 12px;
@@ -187,57 +178,35 @@
         margin-left: 10px;
     }
 
+
     .difficulty.easy {
         background-color: green;
     }
+
 
     .difficulty.medium {
         background-color: orange;
     }
 
+
     .difficulty.hard {
         background-color: red;
     }
+
 
     .difficulty.veryhard {
         background-color: black;
     }
 
-    /* Estilos para a legenda com o novo container */
-    .difficulty-legend-container {
-        margin-top: 30px;
+
+    .task-list {
+        background: #fff;
         padding: 20px;
-        background-color: #f9f9f9;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 80%; /* Define a largura da legenda */
-        margin-bottom: 30px;
+        width: 65%;
     }
 
-    .difficulty-legend h3 {
-        text-align: center;
-        font-size: 22px;
-        margin-bottom: 10px;
-    }
-
-    .difficulty-legend ul {
-        list-style: none;
-        padding: 0;
-        font-size: 16px;
-    }
-
-    .difficulty-legend li {
-        margin: 10px 0;
-    }
-
-    .difficulty-legend .difficulty {
-        margin-right: 10px;
-    }
-
-    .create-task-container {
-        text-align: center;
-        margin-top: 30px;
-    }
 
     .btn-create-task {
         display: inline-block;
@@ -245,20 +214,36 @@
         background-color: #333;
         color: #fff;
         text-decoration: none;
-        font-weight: bold;
         border-radius: 5px;
+        font-weight: bold;
     }
+
 
     .btn-create-task:hover {
         background-color: #555;
     }
 
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 20px auto;
-        max-width: 1400px; /* Amplia o container */
+
+    .legend-container {
+        background: #fff;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+
+    .difficulty-legend ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+    }
+
+
+    .difficulty-legend ul li {
+        margin: 10px 0;
     }
 </style>
 {% endblock %}
