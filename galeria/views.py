@@ -126,15 +126,19 @@ def create_group(request):
         max_members = request.POST.get('max_members', 12)
 
         if group_name:
-            # Create the group and associate the user as admin
+            # Cria o grupo e adiciona o usuário como admin e membro
             group = StudyGroup.objects.create(
                 name=group_name,
                 description=description,
-                admin=request.user,  # Use 'admin' field to associate group with logged-in user
-                max_members=max_members  # Set max members
+                admin=request.user,  # Define o criador como admin
+                max_members=max_members  # Define o número máximo de membros
             )
-            messages.success(request, f"Grupo '{group_name}' criado com sucesso!")
-            return redirect('groups')  # Redirect to the group list
+            # Adiciona o criador também como membro
+            group.members.add(request.user)
+
+            messages.success(request, f"Grupo '{group_name}' criado com sucesso! Você foi adicionado ao grupo.")
+            return redirect('groups')  # Redireciona para a lista de grupos
+
     return render(request, 'userPages/gruposDeEstudo/create_group.html')
 
 # Join Group View
