@@ -56,6 +56,18 @@
             margin-left: 15px;
             font-size: 14px;
         }
+        header nav form {
+            display: inline;
+        }
+        header nav .btn-logout {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+            margin-left: 15px;
+        }
         main {
             flex: 1;
             display: flex;
@@ -118,7 +130,11 @@
         <nav>
             {% if user.is_authenticated %}
                 <a href="{% url 'groups' %}">Grupos de Estudo</a> |
-                <a href="{% url 'tasks' %}">Tarefas da Semana</a>
+                <a href="{% url 'tasks' %}">Tarefas da Semana</a> |
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-logout">Sair</button>
+                </form>
             {% else %}
                 <a href="{% url 'login' %}">Fazer Login</a> |
                 <a href="{% url 'register' %}">Cadastrar-se</a>
