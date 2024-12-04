@@ -22,7 +22,13 @@ def landing_view(request):
 # Home Page for Authenticated Users
 @login_required
 def user(request):
-    today = timezone.now().date()
+    # Make the comparison with timezone aware settings
+    today = timezone.localdate()  # This ensures you get today's date based on the local timezone
+
+    # Debugging print statement to verify dates
+    print(f"Todays date: {today}")
+
+    # Filter for today's tasks
     daily_tasks = Task.objects.filter(user=request.user, due_date=today)
 
     # Calculate total weekly XP by mapping difficulty strings to their respective values
