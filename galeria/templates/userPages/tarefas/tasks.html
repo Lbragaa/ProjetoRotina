@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tarefas Semanais{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Diretório de Tarefas Semanais</h2>
+
+    <!-- Button to Create New Task -->
+    <div class="create-task-container">
+        <a href="{% url 'create_task' %}" class="btn-create-task">Criar Nova Tarefa</a>
+    </div>
+
+    <!-- Lista de Tarefas -->
+    <div class="tasks">
+        <h3>Tarefas da Semana</h3>
+
+        <!-- Display User Created Tasks for the Week -->
+        {% if tasks %}
+            {% for task in tasks %}
+                <div class="task">
+                    <div class="task-details">
+                        <h4>{{ task.description }}</h4>
+                        <!-- Simplified or Corrected Date Format -->
+                        <p>Data: {{ task.due_date|date:"d/m/Y" }}</p>
+                        <p>Horário: {{ task.due_time }}</p>
+                        <p>Dificuldade: <span class="difficulty {{ task.difficulty }}">{{ task.get_difficulty_display }}</span></p>
+                    </div>
+                    <span class="status {% if task.status %}completed{% else %}pending{% endif %}">
+                        {% if task.status %}Concluída{% else %}Pendente{% endif %}
+                    </span>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Não há tarefas cadastradas para esta semana.</p>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .form-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    .create-task-container {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+    .btn-create-task {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+    .btn-create-task:hover {
+        background-color: #555;
+    }
+    .tasks {
+        margin-top: 20px;
+    }
+    .task {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    .task-details {
+        flex-grow: 1;
+        text-align: left;
+    }
+    .status {
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    .pending {
+        color: #e74c3c;
+    }
+    .completed {
+        color: #27ae60;
+    }
+    .difficulty {
+        font-weight: bold;
+    }
+    .difficulty.easy {
+        color: green;
+    }
+    .difficulty.medium {
+        color: orange;
+    }
+    .difficulty.hard {
+        color: red;
+    }
+    .difficulty.veryhard {
+        color: black;
+    }
+</style>
+
+{% endblock %}

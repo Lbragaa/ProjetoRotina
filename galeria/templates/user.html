@@ -6,6 +6,11 @@
 <div class="container">
     <h1>Bem-vindo, {{ user.username }}</h1>
 
+    <!-- Display the total XP for the week -->
+    <div class="weekly-xp-container">
+        <h2>Total XP da Semana: {{ total_weekly_xp }}</h2>
+    </div>
+
     <div class="calendar-container">
         <div class="calendar">
             <table>
@@ -73,11 +78,23 @@
         <div class="task-list">
             <h2>Tarefas do Dia</h2>
             <ul>
-                <li><input type="checkbox" id="task1"> <label for="task1">Revisar documentos</label> <span class="difficulty easy"></span></li>
-                <li><input type="checkbox" id="task2"> <label for="task2">Estudar para a prova</label> <span class="difficulty hard"></span></li>
-                <li><input type="checkbox" id="task3"> <label for="task3">Fazer compras</label> <span class="difficulty medium"></span></li>
-                <li><input type="checkbox" id="task4"> <label for="task4">Enviar e-mails</label> <span class="difficulty easy"></span></li>
+                {% if daily_tasks %}
+                    {% for task in daily_tasks %}
+                        <li>
+                            <input type="checkbox" id="task{{ task.id }}">
+                            <label for="task{{ task.id }}">{{ task.description }}</label>
+                            <span class="difficulty {{ task.difficulty }}"></span>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <p>Não há tarefas cadastradas para hoje.</p>
+                {% endif %}
             </ul>
+
+            <!-- Button to Create New Task -->
+            <div class="create-task-container">
+                <a href="{% url 'create_task' %}" class="btn-create-task">Criar Nova Tarefa</a>
+            </div>
         </div>
     </div>
 
@@ -215,6 +232,25 @@
 
     .difficulty-legend .difficulty {
         margin-right: 10px;
+    }
+
+    .create-task-container {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .btn-create-task {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+    .btn-create-task:hover {
+        background-color: #555;
     }
 
     .container {

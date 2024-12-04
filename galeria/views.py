@@ -4,6 +4,16 @@ from .models import Task, StudyGroup
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from .forms import TaskForm
+from django.utils import timezone
+
+# Difficulty XP Mapping
+DIFFICULTY_XP_MAPPING = {
+    'easy': 1,
+    'medium': 2,
+    'hard': 4,
+    'veryhard': 6,
+}
 
 # Landing Page View
 def landing_view(request):
@@ -12,7 +22,13 @@ def landing_view(request):
 # Home Page for Authenticated Users
 @login_required
 def user(request):
-    return render(request, 'user.html')
+    today = timezone.now().date()
+    daily_tasks = Task.objects.filter(user=request.user, due_date=today)
+
+    # Calculate total weekly XP by mapping difficulty strings to their respective values
+    total_weekly_xp = sum(DIFFICULTY_XP_MAPPING.get(task.difficulty, 0) for task in Task.objects.filter(user=request.user))
+
+    return render(request, 'user.html', {'daily_tasks': daily_tasks, 'total_weekly_xp': total_weekly_xp})
 
 # Registration View
 def register(request):
@@ -27,12 +43,27 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
 
-
-# Task List View for Logged-in Users
+# Task List View for Logged-in Users (Tasks for the Week)
 @login_required
 def task_list(request):
-    tasks = Task.objects.filter(user=request.user)
-    return render(request, 'userPages/tasks.html', {'tasks': tasks})
+    tasks = Task.objects.filter(user=request.user)  # Get all tasks related to the logged-in user
+    return render(request, 'userPages/tarefas/tasks.html', {'tasks': tasks})
+
+# Create Task View
+@login_required
+def create_task(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.user = request.user  # Associate the task with the logged-in user
+            task.save()
+            return redirect('tasks')  # Redirect to the tasks list after creation
+    else:
+        form = TaskForm()
+    
+    return render(request, 'userPages/tarefas/create_task.html', {'form': form})
+
 # Group List View for Study Groups
 @login_required
 def group_list(request):
@@ -48,15 +79,15 @@ def create_group(request):
         max_members = request.POST.get('max_members', 12)
 
         if group_name:
-            # Cria o grupo e associa o usuário como admin
+            # Create the group and associate the user as admin
             group = StudyGroup.objects.create(
                 name=group_name,
                 description=description,
-                admin=request.user,  # Usa o campo 'admin' para associar o grupo ao usuário logado
-                max_members=max_members  # Define o máximo de membros
+                admin=request.user,  # Use 'admin' field to associate group with logged-in user
+                max_members=max_members  # Set max members
             )
             messages.success(request, f"Grupo '{group_name}' criado com sucesso!")
-            return redirect('groups')  # Redireciona para a lista de grupos
+            return redirect('groups')  # Redirect to the group list
     return render(request, 'userPages/gruposDeEstudo/create_group.html')
 
 # Join Group View
